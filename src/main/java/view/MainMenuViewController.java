@@ -9,6 +9,8 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.App;
@@ -32,6 +34,7 @@ public class MainMenuViewController extends Application {
 		Pane newRoot = FXMLLoader.load(url);
 		Scene newScene = new Scene(newRoot);
 		AppView.getStage().setScene(newScene);
+		Media media = new Media(getClass().getResource("/assets/sound/Background.mp3").toExternalForm());
 	}
 
 	@FXML
@@ -44,6 +47,9 @@ public class MainMenuViewController extends Application {
 			colorAdjust.setSaturation(-1);
 			colorAdjust.setBrightness(-0.5);
 			background.setEffect(colorAdjust);
+		}
+		if (!setting.isSound()){
+			AppView.getBackgroundMusic().setMute(true);
 		}
 	}
 

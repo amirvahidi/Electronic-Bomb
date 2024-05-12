@@ -8,6 +8,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import model.Result;
 import controller.LoginMenuController;
@@ -60,6 +62,15 @@ public class LoginMenuViewController extends Application {
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
+		if (AppView.getBackgroundMusic() == null){
+			Media media = new Media(getClass().getResource("/assets/sound/Background.mp3").toExternalForm());
+			AppView.setBackgroundMusic(new MediaPlayer(media));
+			AppView.getBackgroundMusic().setCycleCount(MediaPlayer.INDEFINITE);
+			AppView.getBackgroundMusic().play();
+		}
+		if (AppView.getBackgroundMusic().isMute()){
+			AppView.getBackgroundMusic().setMute(false);
+		}
 	}
 
 	public void run(String[] args) {

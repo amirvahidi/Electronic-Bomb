@@ -145,6 +145,11 @@ public class SettingMenuViewController extends Application {
 	public void changeSound(MouseEvent mouseEvent) throws Exception {
 		soundImageField.setImage(SwingFXUtils.toFXImage(GeneralController.getSetting().isSound() ? ImageIO.read(getClass().getResource("/assets/soundoffbutton.png")) : ImageIO.read(getClass().getResource("/assets/soundonbutton.png")), null));
 		SettingMenuController.changeSound();
+		if (GeneralController.getSetting().isSound()) {
+			AppView.getBackgroundMusic().setMute(false);
+		} else {
+			AppView.getBackgroundMusic().setMute(true);
+		}
 	}
 	public void back(MouseEvent mouseEvent) throws Exception {
 		AppView.setCurrentMenu(new MainMenuViewController());

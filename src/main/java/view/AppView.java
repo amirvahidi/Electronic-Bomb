@@ -1,9 +1,14 @@
 package view;
 
 import javafx.application.Application;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class AppView {
+
+	private static MediaPlayer backgroundMusic;
+
 	private static Stage stage;
 	private static Application currentMenu;
 
@@ -21,5 +26,13 @@ public class AppView {
 
 	public static void setCurrentMenu(Application currentMenu) {
 		AppView.currentMenu = currentMenu;
+	}
+
+	public static MediaPlayer getBackgroundMusic() {
+		return backgroundMusic;
+	}
+
+	public static void setBackgroundMusic(MediaPlayer backgroundMusic) {
+		AppView.backgroundMusic = backgroundMusic;
 	}
 }
