@@ -15,8 +15,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.*;
 import view.AppView;
+import view.animation.ClusterAnimation;
 import view.animation.JetMoving;
 import view.animation.MissileAnimation;
+import view.animation.NukeAnimation;
 
 import java.net.URL;
 
@@ -104,14 +106,40 @@ public class GameMenuViewController extends Application {
 			case SPACE:
 				shootMissile();
 				break;
+			case C:
+				shootCluster();
+				break;
+			case R:
+				shootNuke();
+				break;
 		}
+	}
+
+	private void shootNuke() {
+		Nuke nuke = new Nuke(game.getJet());
+		int index = game.getRoot().getChildren().indexOf(game.getJet());
+		game.getRoot().getChildren().add(index, nuke);
+		game.addBomb(nuke);
+		Transition nukeMoving = new NukeAnimation(nuke, game);
+		game.addAnimation(nukeMoving);
+		nukeMoving.play();
+	}
+
+	private void shootCluster() {
+		Cluster cluster = new Cluster(game.getJet());
+		int index = game.getRoot().getChildren().indexOf(game.getJet());
+		game.getRoot().getChildren().add(index, cluster);
+		game.addBomb(cluster);
+		Transition clusterMoving = new ClusterAnimation(cluster, game);
+		game.addAnimation(clusterMoving);
+		clusterMoving.play();
 	}
 
 	private void shootMissile() {
 		Missile missile = new Missile(game.getJet());
 		int index = game.getRoot().getChildren().indexOf(game.getJet());
 		game.getRoot().getChildren().add(index, missile);
-		game.addMissile(missile);
+		game.addBomb(missile);
 		Transition missileMoving = new MissileAnimation(missile, game);
 		game.addAnimation(missileMoving);
 		missileMoving.play();

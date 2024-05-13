@@ -33,7 +33,7 @@ public class MissileAnimation extends Transition {
 		if (x < -missile.getWidth() || x >= pane.getWidth()){
 			System.out.println("Missile out of bound");
 			pane.getChildren().remove(missile);
-			game.removeMissile(missile);
+			game.removeBomb(missile);
 			game.removeAnimation(this);
 			this.stop();
 		}

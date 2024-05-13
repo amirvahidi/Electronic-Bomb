@@ -12,7 +12,7 @@ public class Game {
 	private Rectangle earth;
 	private Setting setting;
 
-	private ArrayList<Missile> missiles = new ArrayList<>();
+	private ArrayList<Bomb> bombs = new ArrayList<>();
 
 	private ArrayList<Transition> animations = new ArrayList<>();
 
@@ -45,16 +45,16 @@ public class Game {
 		this.setting = setting;
 	}
 
-	public ArrayList<Missile> getMissiles() {
-		return missiles;
+	public ArrayList<Bomb> getBombs() {
+		return bombs;
 	}
 
-	public void addMissile(Missile missile) {
-		missiles.add(missile);
+	public void addBomb(Bomb bomb) {
+		bombs.add(bomb);
 	}
 
-	public void removeMissile(Missile missile) {
-		missiles.remove(missile);
+	public void removeBomb(Bomb bomb) {
+		bombs.remove(bomb);
 	}
 
 	public ArrayList<Transition> getAnimations() {
@@ -76,4 +76,5 @@ public class Game {
 	public void setRoot(Pane root) {
 		this.root = root;
 	}
+
 }

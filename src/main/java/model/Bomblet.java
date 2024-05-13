@@ -2,20 +2,18 @@ package model;
 
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Rectangle;
 
-public class Missile extends Bomb {
+public class Bomblet extends Bomb {
+
 	private double xSpeed, ySpeed;
 	private double acceleration;
 
-	public Missile(Jet jet) {
-		super(jet.getX(), jet.getY(), 11, 5);
-		double angle = jet.getAngle();
-		double speed = jet.getSpeed();
-		acceleration = speed / 1000;
-		xSpeed = speed * Math.cos(Math.toRadians(angle));
-		ySpeed = speed * Math.sin(Math.toRadians(angle));
-		this.setFill(new ImagePattern(new Image(Missile.class.getResource("/assets/Missile.png").toExternalForm())));
+	public Bomblet(double x, double y, double xSpeed, double ySpeed, double acceleration) {
+		super(x, y, 5, 3);
+		this.setFill(new ImagePattern(new Image(Bomblet.class.getResource("/assets/Bomblet.png").toExternalForm())));
+		this.xSpeed = xSpeed;
+		this.ySpeed = ySpeed;
+		this.acceleration = acceleration;
 	}
 
 	public double getXSpeed() {
