@@ -1,8 +1,6 @@
 package view;
 
-import model.App;
-import view.AppView;
-import view.LoginMenuViewController;
+import view.menu.LoginMenuViewController;
 
 public class Main {
 	public static void main(String[] args) {

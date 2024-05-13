@@ -13,6 +13,13 @@ public class Setting {
 		this.difficulty = 1;
 	}
 
+	public Setting(Setting setting) {
+		this.sound = setting.isSound();
+		this.blackAndWhite = setting.isBlackAndWhite();
+		this.arrowKeys = setting.isArrowKeys();
+		this.difficulty = setting.getDifficulty();
+	}
+
 	public boolean isSound() {
 		return this.sound;
 	}

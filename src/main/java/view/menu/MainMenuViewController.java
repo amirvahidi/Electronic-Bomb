@@ -1,4 +1,4 @@
-package view;
+package view.menu;
 
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -10,11 +10,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.App;
 import model.Setting;
+import view.AppView;
 
 import java.net.URL;
 
@@ -53,7 +52,12 @@ public class MainMenuViewController extends Application {
 		}
 	}
 
-	public void startGame(MouseEvent mouseEvent) {
+	public void newGame(MouseEvent mouseEvent) throws Exception {
+		AppView.setCurrentMenu(new GameMenuViewController());
+		AppView.getCurrentMenu().start(AppView.getStage());
+	}
+
+	public void continueGame(MouseEvent mouseEvent) throws Exception {
 
 	}
 
@@ -74,9 +78,4 @@ public class MainMenuViewController extends Application {
 		System.exit(0);
 	}
 
-	public void newGame(MouseEvent mouseEvent) {
-	}
-
-	public void continueGame(MouseEvent mouseEvent) {
-	}
 }

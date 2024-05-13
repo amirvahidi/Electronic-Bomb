@@ -1,4 +1,4 @@
-package view;
+package view.menu;
 
 import controller.GeneralController;
 import controller.SettingMenuController;
@@ -14,8 +14,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import model.App;
 import model.Setting;
+import view.AppView;
 
 import javax.imageio.ImageIO;
 import java.net.URL;

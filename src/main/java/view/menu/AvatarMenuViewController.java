@@ -1,4 +1,4 @@
-package view;
+package view.menu;
 
 import controller.AvatarMenuController;
 import javafx.application.Application;
@@ -6,8 +6,6 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
@@ -23,6 +21,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.App;
 import model.Setting;
+import view.AppView;
 
 import javax.imageio.ImageIO;
 import java.io.File;

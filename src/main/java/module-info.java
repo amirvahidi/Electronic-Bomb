@@ -7,4 +7,6 @@ module w1 {
 
 	exports view;
 	opens view to javafx.fxml;
+	exports view.menu;
+	opens view.menu to javafx.fxml;
 }

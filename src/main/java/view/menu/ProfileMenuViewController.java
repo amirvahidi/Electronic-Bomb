@@ -1,4 +1,4 @@
-package view;
+package view.menu;
 
 import controller.ProfileMenuController;
 import javafx.application.Application;
@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 import model.App;
 import model.Result;
 import model.Setting;
+import view.AlertView;
+import view.AppView;
 
 import java.net.URL;
 

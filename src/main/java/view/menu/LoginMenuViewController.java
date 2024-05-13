@@ -1,9 +1,8 @@
-package view;
+package view.menu;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -13,6 +12,8 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import model.Result;
 import controller.LoginMenuController;
+import view.AlertView;
+import view.AppView;
 
 import java.net.URL;
 
