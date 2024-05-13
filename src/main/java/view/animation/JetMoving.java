@@ -3,23 +3,26 @@ package view.animation;
 import javafx.animation.Transition;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import model.Game;
 import model.Jet;
 
 public class JetMoving extends Transition {
 
+	private Game game;
 	private Jet jet;
 
-	public JetMoving(Jet jet) {
+	public JetMoving(Jet jet, Game game) {
+		this.game = game;
 		this.jet = jet;
 		setCycleCount(-1);
-		setCycleDuration(Duration.millis(100000));
+		setCycleDuration(Duration.millis(10000));
 	}
 	@Override
 	protected void interpolate(double v) {
 		Pane pane = (Pane) jet.getParent();
 		double angle = jet.getAngle();
 		double speed = jet.getSpeed();
-		double angleChange = 0.1;
+		double angleChange = 0.2;
 		double x = jet.getX();
 		double y = jet.getY();
 		if (y <= jet.getWidth() && angle > 0 && angle < 90){

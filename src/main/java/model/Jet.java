@@ -16,7 +16,7 @@ public class Jet extends Rectangle {
 
 	public Jet() {
 		super(27, 9);
-		speed = 0.1;
+		speed = 0.3;
 		angle = 0;
 		this.setStrokeWidth(0);
 		this.setFill(new ImagePattern(new Image(Jet.class.getResource("/assets/Jet.png").toExternalForm())));

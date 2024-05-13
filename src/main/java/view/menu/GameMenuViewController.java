@@ -1,6 +1,8 @@
 package view.menu;
 
 import controller.GeneralController;
+import javafx.animation.Animation;
+import javafx.animation.Transition;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,21 +13,19 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import model.Grass;
-import model.Jet;
-import model.Setting;
+import model.*;
 import view.AppView;
 import view.animation.JetMoving;
+import view.animation.MissileAnimation;
 
 import java.net.URL;
 
 public class GameMenuViewController extends Application {
-
-	public Pane root;
-	public Rectangle earth;
+	public Game game;
 
 	@Override
 	public void start(Stage stage) throws Exception {
+		game = new Game();
 		AppView.setStage(stage);
 		URL url = getClass().getResource("/FXML/GameMenu.fxml");
 		if (url == null) {
@@ -33,13 +33,16 @@ public class GameMenuViewController extends Application {
 			System.exit(-1);
 		}
 		Pane root = FXMLLoader.load(url);
+		game.setRoot(root);
 		Jet jet = new Jet();
+		game.setJet(jet);
 		root.getChildren().add(jet);
 		jet.setOnKeyPressed(this::keyPressed);
 		jet.setOnKeyReleased(this::keyReleased);
-		earth = new Rectangle(0,337 - 38,600, 38);
+		Rectangle earth = new Rectangle(0,337 - 38,600, 38);
 		earth.setStrokeWidth(0);
 		earth.setFill(new Color(91/255.0, 187/255.0, 0, 1));
+		game.setEarth(earth);
 		root.getChildren().add(earth);
 		Group grasses = new Group();
 		for (int i = 0; i < 20; i++){
@@ -49,7 +52,9 @@ public class GameMenuViewController extends Application {
 			grasses.getChildren().add(grass);
 		}
 		root.getChildren().add(grasses);
-		new JetMoving(jet).play();
+		Transition jetMoving = new JetMoving(jet, game);
+		game.addAnimation(jetMoving);
+		jetMoving.play();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
@@ -95,6 +100,21 @@ public class GameMenuViewController extends Application {
 					break;
 			}
 		}
+		switch (keyEvent.getCode()) {
+			case SPACE:
+				shootMissile();
+				break;
+		}
+	}
+
+	private void shootMissile() {
+		Missile missile = new Missile(game.getJet());
+		int index = game.getRoot().getChildren().indexOf(game.getJet());
+		game.getRoot().getChildren().add(index, missile);
+		game.addMissile(missile);
+		Transition missileMoving = new MissileAnimation(missile, game);
+		game.addAnimation(missileMoving);
+		missileMoving.play();
 	}
 
 	public void keyReleased(KeyEvent keyEvent) {
