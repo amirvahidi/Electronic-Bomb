@@ -1,9 +1,11 @@
 package view.animation;
 
 
+import enums.Constant;
 import javafx.animation.Transition;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import model.Explosion;
 import model.Game;
 import model.Missile;
 
@@ -37,10 +39,29 @@ public class MissileAnimation extends Transition {
 			game.removeAnimation(this);
 			this.stop();
 		}
+		if (y >= pane.getHeight() - game.getEarth().getHeight() / 2) {
+			makeExplosion();
+			pane.getChildren().remove(missile);
+			game.removeBomb(missile);
+			game.removeAnimation(this);
+			this.stop();
+		}
 		missile.setX(x);
 		missile.setY(y);
 		missile.setRotate(-Math.toDegrees(Math.atan2(ySpeed, xSpeed)));
 		missile.setXSpeed(xSpeed);
 		missile.setYSpeed(ySpeed);
+	}
+
+	private void makeExplosion() {
+		Explosion explosion = new Explosion(missile.getX() - (Constant.MISSILE_EXPLOSION_WIDTH.getValue() / 2 - missile.getWidth()),
+				missile.getY() - (Constant.MISSILE_EXPLOSION_HEIGHT.getValue() - missile.getHeight()),
+				Constant.MISSILE_EXPLOSION_WIDTH.getValue(), Constant.MISSILE_EXPLOSION_HEIGHT.getValue());
+		Pane root = game.getRoot();
+		root.getChildren().add(explosion);
+		game.addExplosion(explosion);
+		MissileExplosion missileExplosion = new MissileExplosion(game, explosion);
+		game.addAnimation(missileExplosion);
+		missileExplosion.play();
 	}
 }

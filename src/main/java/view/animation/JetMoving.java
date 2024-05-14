@@ -26,10 +26,10 @@ public class JetMoving extends Transition {
 		double x = jet.getX();
 		double y = jet.getY();
 		if (y <= jet.getWidth() && angle > 0 && angle < 90){
-			angle -= 2 * angleChange;
+			angle -= 3 * angleChange;
 		}
 		else if (y <= jet.getWidth() && angle < 180 && angle >= 90){
-			angle += 2 * angleChange;
+			angle += 3 * angleChange;
 		}
 		else if (jet.isGoingUp()){
 			if (angle > 90 && angle <= 270){

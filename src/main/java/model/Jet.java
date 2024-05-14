@@ -1,5 +1,7 @@
 package model;
 
+import enums.Constant;
+import enums.PicturesAddress;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
@@ -15,11 +17,11 @@ public class Jet extends Rectangle {
 	private boolean isGoingRight = false;
 
 	public Jet() {
-		super(27, 9);
-		speed = 0.3;
+		super(Constant.JET_WIDTH.getValue(), Constant.JET_HEIGHT.getValue());
+		speed = Constant.JET_SPEED.getValue();
 		angle = 0;
 		this.setStrokeWidth(0);
-		this.setFill(new ImagePattern(new Image(Jet.class.getResource("/assets/Jet.png").toExternalForm())));
+		this.setFill(new ImagePattern(new Image(Jet.class.getResource(PicturesAddress.JET.getValue()).toExternalForm())));
 	}
 
 	public double getSpeed() {

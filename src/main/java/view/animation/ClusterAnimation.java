@@ -38,7 +38,7 @@ public class ClusterAnimation extends Transition {
 		double height = game.getRoot().getHeight();
 		if (y >= height - height / 3) {
 			for (int i = 0; i < 10; i++) {
-				Bomblet bomblet = new Bomblet(x, y, Math.random() - 0.5, ySpeed, acceleration);
+				Bomblet bomblet = new Bomblet(x, y, Math.random() - 0.5, ySpeed);
 				game.addBomb(bomblet);
 				game.getRoot().getChildren().add(bomblet);
 				BombletAnimation bombletAnimation = new BombletAnimation(bomblet, game);

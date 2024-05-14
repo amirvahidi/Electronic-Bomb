@@ -16,6 +16,8 @@ public class Game {
 
 	private ArrayList<Transition> animations = new ArrayList<>();
 
+	private ArrayList<Explosion> explosions = new ArrayList<>();
+
 	public Game() {
 		this.setting = new Setting(App.getCurrentUser().getSetting());
 	}
@@ -67,6 +69,18 @@ public class Game {
 
 	public void removeAnimation(Transition animation) {
 		animations.remove(animation);
+	}
+
+	public ArrayList<Explosion> getExplosions() {
+		return explosions;
+	}
+
+	public void addExplosion(Explosion explosion) {
+		explosions.add(explosion);
+	}
+
+	public void removeExplosion(Explosion explosion) {
+		explosions.remove(explosion);
 	}
 
 	public Pane getRoot() {

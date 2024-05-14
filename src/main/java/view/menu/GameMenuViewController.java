@@ -36,24 +36,24 @@ public class GameMenuViewController extends Application {
 		}
 		Pane root = FXMLLoader.load(url);
 		game.setRoot(root);
-		Jet jet = new Jet();
-		game.setJet(jet);
-		root.getChildren().add(jet);
-		jet.setOnKeyPressed(this::keyPressed);
-		jet.setOnKeyReleased(this::keyReleased);
 		Rectangle earth = new Rectangle(0,337 - 38,600, 38);
 		earth.setStrokeWidth(0);
 		earth.setFill(new Color(91/255.0, 187/255.0, 0, 1));
 		game.setEarth(earth);
 		root.getChildren().add(earth);
 		Group grasses = new Group();
-		for (int i = 0; i < 20; i++){
+		for (int i = 0; i < 20; i++) {
 			Grass grass = new Grass();
 			grass.setY(earth.getY() + Math.random() * earth.getHeight());
 			grass.setX(earth.getX() + Math.random() * earth.getWidth());
 			grasses.getChildren().add(grass);
 		}
 		root.getChildren().add(grasses);
+		Jet jet = new Jet();
+		game.setJet(jet);
+		root.getChildren().add(jet);
+		jet.setOnKeyPressed(this::keyPressed);
+		jet.setOnKeyReleased(this::keyReleased);
 		Transition jetMoving = new JetMoving(jet, game);
 		game.addAnimation(jetMoving);
 		jetMoving.play();
@@ -116,7 +116,13 @@ public class GameMenuViewController extends Application {
 	}
 
 	private void shootNuke() {
-		Nuke nuke = new Nuke(game.getJet());
+		double x = game.getJet().getX();
+		double y = game.getJet().getY();
+		double speed = game.getJet().getSpeed();
+		double angle = game.getJet().getAngle();
+		double xSpeed = speed * Math.cos(Math.toRadians(angle));
+		double ySpeed = speed * Math.sin(Math.toRadians(angle));
+		Nuke nuke = new Nuke(x, y, xSpeed, ySpeed);
 		int index = game.getRoot().getChildren().indexOf(game.getJet());
 		game.getRoot().getChildren().add(index, nuke);
 		game.addBomb(nuke);
@@ -126,7 +132,13 @@ public class GameMenuViewController extends Application {
 	}
 
 	private void shootCluster() {
-		Cluster cluster = new Cluster(game.getJet());
+		double x = game.getJet().getX();
+		double y = game.getJet().getY();
+		double speed = game.getJet().getSpeed();
+		double angle = game.getJet().getAngle();
+		double xSpeed = speed * Math.cos(Math.toRadians(angle));
+		double ySpeed = speed * Math.sin(Math.toRadians(angle));
+		Cluster cluster = new Cluster(x, y, xSpeed, ySpeed);
 		int index = game.getRoot().getChildren().indexOf(game.getJet());
 		game.getRoot().getChildren().add(index, cluster);
 		game.addBomb(cluster);
@@ -136,7 +148,13 @@ public class GameMenuViewController extends Application {
 	}
 
 	private void shootMissile() {
-		Missile missile = new Missile(game.getJet());
+		double x = game.getJet().getX();
+		double y = game.getJet().getY();
+		double speed = game.getJet().getSpeed();
+		double angle = game.getJet().getAngle();
+		double xSpeed = speed * Math.cos(Math.toRadians(angle));
+		double ySpeed = speed * Math.sin(Math.toRadians(angle));
+		Missile missile = new Missile(x, y, xSpeed, ySpeed);
 		int index = game.getRoot().getChildren().indexOf(game.getJet());
 		game.getRoot().getChildren().add(index, missile);
 		game.addBomb(missile);
