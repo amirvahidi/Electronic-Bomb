@@ -18,6 +18,8 @@ public class Game {
 
 	private ArrayList<Explosion> explosions = new ArrayList<>();
 
+	private ArrayList<Target> targets = new ArrayList<>();
+
 	public Game() {
 		this.setting = new Setting(App.getCurrentUser().getSetting());
 	}
@@ -81,6 +83,18 @@ public class Game {
 
 	public void removeExplosion(Explosion explosion) {
 		explosions.remove(explosion);
+	}
+
+	public ArrayList<Target> getTargets() {
+		return targets;
+	}
+
+	public void addTarget(Target target) {
+		targets.add(target);
+	}
+
+	public void removeTarget(Target target) {
+		targets.remove(target);
 	}
 
 	public Pane getRoot() {

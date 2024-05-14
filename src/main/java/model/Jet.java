@@ -75,4 +75,17 @@ public class Jet extends Rectangle {
 	public void setGoingRight(boolean goingRight) {
 		isGoingRight = goingRight;
 	}
+
+	public void reset() {
+		this.setX(0);
+		this.setY(0);
+		this.setSpeed(Constant.JET_SPEED.getValue());
+		this.setAngle(0);
+		this.setRotate(0);
+		this.setScaleY(1);
+		this.setGoingUp(false);
+		this.setGoingDown(false);
+		this.setGoingLeft(false);
+		this.setGoingRight(false);
+	}
 }

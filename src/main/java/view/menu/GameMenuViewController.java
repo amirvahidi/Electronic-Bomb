@@ -1,6 +1,7 @@
 package view.menu;
 
 import controller.GeneralController;
+import enums.Constant;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.application.Application;
@@ -15,10 +16,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.*;
 import view.AppView;
-import view.animation.ClusterAnimation;
-import view.animation.JetMoving;
-import view.animation.MissileAnimation;
-import view.animation.NukeAnimation;
+import view.animation.*;
 
 import java.net.URL;
 
@@ -52,6 +50,41 @@ public class GameMenuViewController extends Application {
 		Jet jet = new Jet();
 		game.setJet(jet);
 		root.getChildren().add(jet);
+		for (int i = 0; i < 5; i++){
+			//add base
+			double x = Math.random() * Constant.SCENE_WIDTH.getValue();
+			double y = Constant.SCENE_HEIGHT.getValue() - earth.getHeight() / 2 - Constant.BASE_HEIGHT.getValue();
+			int idx = (int) (Math.random() * 2) + 1;
+			Base base = new Base(x, y, idx);
+			root.getChildren().add(base);
+			game.addTarget(base);
+			Transition baseAnimation = new BaseAnimation(game, base);
+			game.addAnimation(baseAnimation);
+			baseAnimation.play();
+		}
+		for (int i = 0; i < 10; i++){
+			//add tree
+			double x = Math.random() * Constant.SCENE_WIDTH.getValue();
+			double y = Constant.SCENE_HEIGHT.getValue() - earth.getHeight() / 2 - Constant.TREE_HEIGHT.getValue();
+			//give a random from 1 to 3
+			int idx = (int) (Math.random() * 3) + 1;
+			Tree tree = new Tree(x, y, idx);
+			root.getChildren().add(tree);
+			game.addTarget(tree);
+		}
+		for (int i = 0; i < 1; i++){
+			//add truck
+			double x = Math.random() * Constant.SCENE_WIDTH.getValue();
+			double y = Constant.SCENE_HEIGHT.getValue() - earth.getHeight() / 2 - Constant.TRUCK_HEIGHT.getValue();
+			boolean goingRight = Math.random() > 0.5;
+			Truck truck = new Truck(x, y, goingRight);
+			root.getChildren().add(truck);
+			game.addTarget(truck);
+			Transition truckMoving = new TruckMoving(truck, game);
+			game.addAnimation(truckMoving);
+			truckMoving.play();
+		}
+
 		jet.setOnKeyPressed(this::keyPressed);
 		jet.setOnKeyReleased(this::keyReleased);
 		Transition jetMoving = new JetMoving(jet, game);
