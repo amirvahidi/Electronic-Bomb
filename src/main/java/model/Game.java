@@ -1,7 +1,9 @@
 package model;
 
 import javafx.animation.Transition;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
@@ -105,4 +107,76 @@ public class Game {
 		this.root = root;
 	}
 
+	public enum Images {
+
+		JET(new ImagePattern(new Image(Images.class.getResource("/assets/Jet.png").toExternalForm()))),
+		MISSILE(new ImagePattern(new Image(Images.class.getResource("/assets/Missile.png").toExternalForm()))),
+		CLUSTER(new ImagePattern(new Image(Images.class.getResource("/assets/Cluster.png").toExternalForm()))),
+		BOMBLET(new ImagePattern(new Image(Images.class.getResource("/assets/Bomblet.png").toExternalForm()))),
+		NUKE(new ImagePattern(new Image(Images.class.getResource("/assets/Nuke.png").toExternalForm()))),
+		TRUCK(new ImagePattern(new Image(Images.class.getResource("/assets/Truck.png").toExternalForm()))),
+		TREE_1(new ImagePattern(new Image(Images.class.getResource("/assets/tree/1.png").toExternalForm()))),
+		TREE_2(new ImagePattern(new Image(Images.class.getResource("/assets/tree/2.png").toExternalForm()))),
+		TREE_3(new ImagePattern(new Image(Images.class.getResource("/assets/tree/3.png").toExternalForm()))),
+		GRASS(new ImagePattern(new Image(Images.class.getResource("/assets/Grass.png").toExternalForm())));
+		private final ImagePattern value;
+
+		Images(ImagePattern value) {
+			this.value = value;
+		}
+
+		public ImagePattern getValue() {
+			return value;
+		}
+	}
+
+	public enum AnimationPictures {
+
+		MISSILE_EXPLOSION(new ImagePattern[]{
+				new ImagePattern(new Image(Images.class.getResource("/assets/missileexplosion/1.png").toExternalForm())),
+				new ImagePattern(new Image(Images.class.getResource("/assets/missileexplosion/2.png").toExternalForm())),
+				new ImagePattern(new Image(Images.class.getResource("/assets/missileexplosion/3.png").toExternalForm())),
+				new ImagePattern(new Image(Images.class.getResource("/assets/missileexplosion/4.png").toExternalForm()))
+		}),
+		BOMBLET_EXPLOSION(new ImagePattern[]{
+				new ImagePattern(new Image(Images.class.getResource("/assets/bombletexplosion/1.png").toExternalForm())),
+				new ImagePattern(new Image(Images.class.getResource("/assets/bombletexplosion/2.png").toExternalForm())),
+				new ImagePattern(new Image(Images.class.getResource("/assets/bombletexplosion/3.png").toExternalForm()))
+		}),
+		NUKE_EXPLOSION(new ImagePattern[]{
+				new ImagePattern(new Image(Images.class.getResource("/assets/nukeexplosion/1.png").toExternalForm())),
+				new ImagePattern(new Image(Images.class.getResource("/assets/nukeexplosion/2.png").toExternalForm())),
+				new ImagePattern(new Image(Images.class.getResource("/assets/nukeexplosion/3.png").toExternalForm())),
+				new ImagePattern(new Image(Images.class.getResource("/assets/nukeexplosion/4.png").toExternalForm())),
+				new ImagePattern(new Image(Images.class.getResource("/assets/nukeexplosion/NukeStem.png").toExternalForm()))
+		}),
+		JET_EXPLOSION(new ImagePattern[]{
+				new ImagePattern(new Image(Images.class.getResource("/assets/jetexplosion/1.png").toExternalForm())),
+				new ImagePattern(new Image(Images.class.getResource("/assets/jetexplosion/2.png").toExternalForm())),
+				new ImagePattern(new Image(Images.class.getResource("/assets/jetexplosion/3.png").toExternalForm())),
+				new ImagePattern(new Image(Images.class.getResource("/assets/jetexplosion/4.png").toExternalForm()))
+		}),
+		BASE_ANIMATION(new ImagePattern[]{
+				new ImagePattern(new Image(Images.class.getResource("/assets/bunker/1.png").toExternalForm())),
+				new ImagePattern(new Image(Images.class.getResource("/assets/bunker/2.png").toExternalForm()))
+		}),
+		BUNKER_ANIMATION(new ImagePattern[]{
+				new ImagePattern(new Image(Images.class.getResource("/assets/bunker/1.png").toExternalForm())),
+				new ImagePattern(new Image(Images.class.getResource("/assets/bunker/2.png").toExternalForm()))
+		}),
+		TANK_ANIMATION(new ImagePattern[]{
+				new ImagePattern(new Image(Images.class.getResource("/assets/tank/1.png").toExternalForm())),
+				new ImagePattern(new Image(Images.class.getResource("/assets/tank/2.png").toExternalForm()))
+		});
+
+		private final ImagePattern[] value;
+
+		AnimationPictures(ImagePattern[] value) {
+			this.value = value;
+		}
+
+		public ImagePattern[] getValue(){
+			return this.value;
+		}
+	}
 }

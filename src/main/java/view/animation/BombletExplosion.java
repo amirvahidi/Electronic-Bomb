@@ -26,7 +26,7 @@ public class BombletExplosion extends Transition {
 		v *= sz;
 		for (int i = 1; i <= sz; i++) {
 			if (v < i) {
-				explosion.setFill(new ImagePattern(new Image(MissileExplosion.class.getResource("/assets/bombletexplosion/" + i + ".png").toExternalForm())));
+				explosion.setFill(Game.AnimationPictures.BOMBLET_EXPLOSION.getValue()[i-1]);
 				break;
 			}
 		}

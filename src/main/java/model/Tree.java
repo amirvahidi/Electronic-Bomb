@@ -8,6 +8,14 @@ public class Tree extends Target {
 
 	public Tree(double x, double y, int idx) {
 		super(x, y, Constant.TREE_WIDTH.getValue(), Constant.TREE_HEIGHT.getValue());
-		this.setFill(new ImagePattern(new Image(Tree.class.getResource("/assets/tree/" + idx + ".png").toExternalForm())));
+		if (idx == 1){
+			this.setFill(Game.Images.TREE_1.getValue());
+		}
+		else if (idx == 2){
+			this.setFill(Game.Images.TREE_2.getValue());
+		}
+		else if (idx == 3){
+			this.setFill(Game.Images.TREE_3.getValue());
+		}
 	}
 }

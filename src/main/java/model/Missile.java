@@ -9,6 +9,6 @@ import javafx.scene.shape.Rectangle;
 public class Missile extends Bomb {
 	public Missile(double x, double y, double xSpeed, double ySpeed) {
 		super(x, y, Constant.MISSILE_WIDTH.getValue(), Constant.MISSILE_HEIGHT.getValue(), xSpeed, ySpeed);
-		this.setFill(new ImagePattern(new Image(Missile.class.getResource(PicturesAddress.MISSILE.getValue()).toExternalForm())));
+		this.setFill(Game.Images.MISSILE.getValue());
 	}
 }

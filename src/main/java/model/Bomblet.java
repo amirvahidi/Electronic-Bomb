@@ -9,7 +9,7 @@ public class Bomblet extends Bomb {
 
 	public Bomblet(double x, double y, double xSpeed, double ySpeed) {
 		super(x, y, Constant.BOMBLET_WIDTH.getValue(), Constant.BOMBLET_HEIGHT.getValue(), xSpeed, ySpeed);
-		this.setFill(new ImagePattern(new Image(Bomblet.class.getResource(PicturesAddress.BOMBLET.getValue()).toExternalForm())));
+		this.setFill(Game.Images.BOMBLET.getValue());
 	}
 
 }

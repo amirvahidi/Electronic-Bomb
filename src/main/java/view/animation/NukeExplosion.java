@@ -31,9 +31,10 @@ public class NukeExplosion extends Transition {
 	protected void interpolate(double v) {
 		count++;
 		int topCnt = 4;
-		topExplosion.setFill(new ImagePattern(new Image(NukeExplosion.class.getResource("/assets/nukeexplosion/" + (count / 50 % topCnt + 1) + ".png").toExternalForm())));
-		explosion.setFill(new ImagePattern(new Image(NukeExplosion.class.getResource("/assets/nukeexplosion/NukeStem.png").toExternalForm())));
+		topExplosion.setFill(Game.AnimationPictures.NUKE_EXPLOSION.getValue()[count / 50 % topCnt]);
+		explosion.setFill(Game.AnimationPictures.NUKE_EXPLOSION.getValue()[topCnt]);
 		Pane root = game.getRoot();
+		v += 0.3;
 		double explosionWidth = (root.getWidth() / 6) * v;
 		double explosionHeight = (root.getHeight() / 3) * v;
 		double topExplosionWidth = (root.getWidth() / 3) * v;

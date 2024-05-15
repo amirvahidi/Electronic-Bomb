@@ -1,20 +1,18 @@
 package view.animation;
 
 import javafx.animation.Transition;
-import javafx.scene.image.Image;
-import javafx.scene.paint.ImagePattern;
 import javafx.util.Duration;
-import model.Base;
+import model.Bunker;
 import model.Game;
 
-public class BaseAnimation extends Transition {
+public class BunkerAnimation extends Transition {
 
 	private Game game;
-	private Base base;
+	private Bunker bunker;
 
-	public BaseAnimation(Game game, Base base) {
+	public BunkerAnimation(Game game, Bunker bunker) {
 		this.game = game;
-		this.base = base;
+		this.bunker = bunker;
 		this.setCycleCount(-1);
 		this.setCycleDuration(Duration.millis(1000));
 	}
@@ -22,12 +20,12 @@ public class BaseAnimation extends Transition {
 	@Override
 	protected void interpolate(double v) {
 		int idx;
-		if (v < 0.5){
+		if (v < 0.5) {
 			idx = 0;
 		}
-		else{
+		else {
 			idx = 1;
 		}
-		base.setFill(Game.AnimationPictures.BASE_ANIMATION.getValue()[idx]);
+		bunker.setFill(Game.AnimationPictures.BUNKER_ANIMATION.getValue()[idx]);
 	}
 }

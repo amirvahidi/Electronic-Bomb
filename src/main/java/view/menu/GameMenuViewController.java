@@ -50,17 +50,27 @@ public class GameMenuViewController extends Application {
 		Jet jet = new Jet();
 		game.setJet(jet);
 		root.getChildren().add(jet);
-		for (int i = 0; i < 5; i++){
+		for (int i = 0; i < 1; i++){
 			//add base
 			double x = Math.random() * Constant.SCENE_WIDTH.getValue();
 			double y = Constant.SCENE_HEIGHT.getValue() - earth.getHeight() / 2 - Constant.BASE_HEIGHT.getValue();
-			int idx = (int) (Math.random() * 2) + 1;
-			Base base = new Base(x, y, idx);
+			Base base = new Base(x, y);
 			root.getChildren().add(base);
 			game.addTarget(base);
 			Transition baseAnimation = new BaseAnimation(game, base);
 			game.addAnimation(baseAnimation);
 			baseAnimation.play();
+		}
+		for (int i = 0; i < 1; i++){
+			//add bunker
+			double x = Math.random() * Constant.SCENE_WIDTH.getValue();
+			double y = Constant.SCENE_HEIGHT.getValue() - earth.getHeight() / 2 - Constant.BUNKER_HEIGHT.getValue();
+			Bunker bunker = new Bunker(x, y);
+			root.getChildren().add(bunker);
+			game.addTarget(bunker);
+			Transition bunkerAnimation = new BunkerAnimation(game, bunker);
+			game.addAnimation(bunkerAnimation);
+			bunkerAnimation.play();
 		}
 		for (int i = 0; i < 10; i++){
 			//add tree
@@ -71,6 +81,17 @@ public class GameMenuViewController extends Application {
 			Tree tree = new Tree(x, y, idx);
 			root.getChildren().add(tree);
 			game.addTarget(tree);
+		}
+		for (int i = 0; i < 2; i++){
+			double x = Math.random() * Constant.SCENE_WIDTH.getValue();
+			double y = Constant.SCENE_HEIGHT.getValue() - earth.getHeight() / 2 - Constant.TRUCK_HEIGHT.getValue();
+			boolean goingRight = Math.random() > 0.5;
+			Tank tank = new Tank(x, y, goingRight);
+			root.getChildren().add(tank);
+			game.addTarget(tank);
+			Transition tankAnimation = new TankAnimation(game, tank);
+			game.addAnimation(tankAnimation);
+			tankAnimation.play();
 		}
 		for (int i = 0; i < 1; i++){
 			//add truck

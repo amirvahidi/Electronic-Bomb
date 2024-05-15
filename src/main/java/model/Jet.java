@@ -21,7 +21,7 @@ public class Jet extends Rectangle {
 		speed = Constant.JET_SPEED.getValue();
 		angle = 0;
 		this.setStrokeWidth(0);
-		this.setFill(new ImagePattern(new Image(Jet.class.getResource(PicturesAddress.JET.getValue()).toExternalForm())));
+		this.setFill(Game.Images.JET.getValue());
 	}
 
 	public double getSpeed() {

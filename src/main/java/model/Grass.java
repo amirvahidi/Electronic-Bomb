@@ -7,6 +7,6 @@ import javafx.scene.shape.Rectangle;
 public class Grass extends Rectangle {
 	public Grass() {
 		super(17, 9);
-		this.setFill(new ImagePattern(new Image(getClass().getResource("/assets/Grass.png").toExternalForm())));
+		this.setFill(Game.Images.GRASS.getValue());
 	}
 }

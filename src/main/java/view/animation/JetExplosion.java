@@ -26,7 +26,7 @@ public class JetExplosion extends Transition {
 		v *= sz;
 		for (int i = 1; i <= sz; i++) {
 			if (v < i) {
-				explosion.setFill(new ImagePattern(new Image(MissileExplosion.class.getResource("/assets/jetexplosion/" + i + ".png").toExternalForm())));
+				explosion.setFill(Game.AnimationPictures.JET_EXPLOSION.getValue()[i-1]);
 				break;
 			}
 		}

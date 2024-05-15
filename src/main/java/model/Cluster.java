@@ -11,7 +11,7 @@ public class Cluster extends Bomb {
 
 	public Cluster(double x, double y, double xSpeed, double ySpeed) {
 		super(x, y, Constant.CLUSTER_WIDTH.getValue(), Constant.CLUSTER_HEIGHT.getValue(), xSpeed, ySpeed);
-		this.setFill(new ImagePattern(new Image(Cluster.class.getResource(PicturesAddress.CLUSTER.getValue()).toExternalForm())));
+		this.setFill(Game.Images.CLUSTER.getValue());
 	}
 
 
