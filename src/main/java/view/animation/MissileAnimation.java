@@ -8,6 +8,9 @@ import javafx.util.Duration;
 import model.Explosion;
 import model.Game;
 import model.Missile;
+import model.Target;
+
+import java.util.ArrayList;
 
 public class MissileAnimation extends Transition {
 
@@ -46,6 +49,17 @@ public class MissileAnimation extends Transition {
 			game.removeAnimation(this);
 			this.stop();
 		}
+		ArrayList<Target> targets = game.getTargets();
+		for (Target target : targets) {
+			if (missile.checkCollision(target)) {
+				makeExplosion();
+				pane.getChildren().remove(missile);
+				game.removeBomb(missile);
+				game.removeAnimation(this);
+				this.stop();
+				break;
+			}
+		}
 		missile.setX(x);
 		missile.setY(y);
 		missile.setRotate(-Math.toDegrees(Math.atan2(ySpeed, xSpeed)));
@@ -54,8 +68,16 @@ public class MissileAnimation extends Transition {
 	}
 
 	private void makeExplosion() {
+		ArrayList<Target> targets = game.getTargets();
+		for (Target target : targets) {
+			if (missile.checkCollision(target)) {
+				game.getRoot().getChildren().remove(target);
+				game.removeTarget(target);
+				break;
+			}
+		}
 		Explosion explosion = new Explosion(missile.getX() - (Constant.MISSILE_EXPLOSION_WIDTH.getValue() / 2 - missile.getWidth()),
-				missile.getY() - (Constant.MISSILE_EXPLOSION_HEIGHT.getValue() - missile.getHeight()),
+				game.getRoot().getHeight() - game.getEarth().getHeight() / 2 - Constant.MISSILE_EXPLOSION_HEIGHT.getValue(),
 				Constant.MISSILE_EXPLOSION_WIDTH.getValue(), Constant.MISSILE_EXPLOSION_HEIGHT.getValue());
 		Pane root = game.getRoot();
 		root.getChildren().add(explosion);

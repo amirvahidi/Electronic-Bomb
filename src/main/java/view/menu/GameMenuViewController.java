@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -105,7 +106,13 @@ public class GameMenuViewController extends Application {
 			game.addAnimation(truckMoving);
 			truckMoving.play();
 		}
-
+		//give all objects strock width 2 except earth
+		for (int i = 0; i < root.getChildren().size(); i++){
+			if (root.getChildren().get(i) instanceof Rectangle){
+				Rectangle rectangle = (Rectangle) root.getChildren().get(i);
+				rectangle.setStrokeWidth(10);
+			}
+		}
 		jet.setOnKeyPressed(this::keyPressed);
 		jet.setOnKeyReleased(this::keyReleased);
 		Transition jetMoving = new JetMoving(jet, game);
@@ -119,6 +126,13 @@ public class GameMenuViewController extends Application {
 
 	@FXML
 	public void initialize() throws Exception {
+		Setting setting = GeneralController.getSetting();
+		if (setting.isBlackAndWhite()){
+			ColorAdjust colorAdjust = new ColorAdjust();
+			colorAdjust.setSaturation(-1);
+			colorAdjust.setBrightness(-0.5);
+			AppView.getStage().getScene().getRoot().setEffect(colorAdjust);
+		}
 	}
 
 	public void keyPressed(KeyEvent keyEvent) {
@@ -170,6 +184,7 @@ public class GameMenuViewController extends Application {
 	}
 
 	private void shootNuke() {
+		if (!game.getBombs().isEmpty()) return;
 		double x = game.getJet().getX();
 		double y = game.getJet().getY();
 		double speed = game.getJet().getSpeed();
@@ -186,6 +201,7 @@ public class GameMenuViewController extends Application {
 	}
 
 	private void shootCluster() {
+		if (!game.getBombs().isEmpty()) return;
 		double x = game.getJet().getX();
 		double y = game.getJet().getY();
 		double speed = game.getJet().getSpeed();
@@ -202,6 +218,7 @@ public class GameMenuViewController extends Application {
 	}
 
 	private void shootMissile() {
+		if (!game.getBombs().isEmpty()) return;
 		double x = game.getJet().getX();
 		double y = game.getJet().getY();
 		double speed = game.getJet().getSpeed();

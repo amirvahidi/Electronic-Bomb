@@ -1,9 +1,14 @@
 package view.animation;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.animation.Transition;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
+import javafx.util.Duration;
 import model.Explosion;
 import model.Game;
 
@@ -30,6 +35,18 @@ public class NukeExplosion extends Transition {
 	@Override
 	protected void interpolate(double v) {
 		count++;
+		if (count == 1) {
+			//make flash effect
+			ColorAdjust colorAdjust = new ColorAdjust();
+			colorAdjust.setBrightness(1);
+			game.getRoot().setEffect(colorAdjust);
+			Timeline flashTimeline = new Timeline(
+					new KeyFrame(Duration.seconds(0), new KeyValue(colorAdjust.brightnessProperty(), 1)),
+					new KeyFrame(Duration.seconds(1), new KeyValue(colorAdjust.brightnessProperty(), 0))
+			);
+
+			flashTimeline.play();
+		}
 		int topCnt = 4;
 		topExplosion.setFill(Game.AnimationPictures.NUKE_EXPLOSION.getValue()[count / 50 % topCnt]);
 		explosion.setFill(Game.AnimationPictures.NUKE_EXPLOSION.getValue()[topCnt]);

@@ -8,7 +8,7 @@ import javafx.scene.paint.ImagePattern;
 public class Bomblet extends Bomb {
 
 	public Bomblet(double x, double y, double xSpeed, double ySpeed) {
-		super(x, y, Constant.BOMBLET_WIDTH.getValue(), Constant.BOMBLET_HEIGHT.getValue(), xSpeed, ySpeed);
+		super(x, y, Constant.BOMBLET_WIDTH.getValue(), Constant.BOMBLET_HEIGHT.getValue(), xSpeed, ySpeed, Constant.BOMBLET_RANGE.getValue());
 		this.setFill(Game.Images.BOMBLET.getValue());
 	}
 

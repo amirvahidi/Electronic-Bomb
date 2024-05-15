@@ -52,7 +52,7 @@ public class Game {
 	}
 
 	public ArrayList<Bomb> getBombs() {
-		return bombs;
+		return new ArrayList<>(bombs);
 	}
 
 	public void addBomb(Bomb bomb) {
@@ -64,7 +64,7 @@ public class Game {
 	}
 
 	public ArrayList<Transition> getAnimations() {
-		return animations;
+		return new ArrayList<>(animations);
 	}
 
 	public void addAnimation(Transition animation) {
@@ -76,7 +76,7 @@ public class Game {
 	}
 
 	public ArrayList<Explosion> getExplosions() {
-		return explosions;
+		return new ArrayList<>(explosions);
 	}
 
 	public void addExplosion(Explosion explosion) {
@@ -88,7 +88,7 @@ public class Game {
 	}
 
 	public ArrayList<Target> getTargets() {
-		return targets;
+		return new ArrayList<>(targets);
 	}
 
 	public void addTarget(Target target) {

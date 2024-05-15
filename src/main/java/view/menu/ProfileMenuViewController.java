@@ -48,7 +48,7 @@ public class ProfileMenuViewController extends Application {
 			ColorAdjust colorAdjust = new ColorAdjust();
 			colorAdjust.setSaturation(-1);
 			colorAdjust.setBrightness(-0.5);
-			background.setEffect(colorAdjust);
+			AppView.getStage().getScene().getRoot().setEffect(colorAdjust);
 		}
 	}
 
