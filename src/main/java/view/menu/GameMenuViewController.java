@@ -13,6 +13,7 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.*;
@@ -59,8 +60,9 @@ public class GameMenuViewController extends Application {
 			root.getChildren().add(base);
 			game.addTarget(base);
 			Transition baseAnimation = new BaseAnimation(game, base);
+			base.setAnimation(baseAnimation);
 			game.addAnimation(baseAnimation);
-			baseAnimation.play();
+			base.playAnimation();
 		}
 		for (int i = 0; i < 1; i++){
 			//add bunker
@@ -70,8 +72,9 @@ public class GameMenuViewController extends Application {
 			root.getChildren().add(bunker);
 			game.addTarget(bunker);
 			Transition bunkerAnimation = new BunkerAnimation(game, bunker);
+			bunker.setAnimation(bunkerAnimation);
 			game.addAnimation(bunkerAnimation);
-			bunkerAnimation.play();
+			bunker.playAnimation();
 		}
 		for (int i = 0; i < 10; i++){
 			//add tree
@@ -91,8 +94,9 @@ public class GameMenuViewController extends Application {
 			root.getChildren().add(tank);
 			game.addTarget(tank);
 			Transition tankAnimation = new TankAnimation(game, tank);
+			tank.setAnimation(tankAnimation);
 			game.addAnimation(tankAnimation);
-			tankAnimation.play();
+			tank.playAnimation();
 		}
 		for (int i = 0; i < 1; i++){
 			//add truck
@@ -103,15 +107,9 @@ public class GameMenuViewController extends Application {
 			root.getChildren().add(truck);
 			game.addTarget(truck);
 			Transition truckMoving = new TruckMoving(truck, game);
+			truck.setAnimation(truckMoving);
 			game.addAnimation(truckMoving);
-			truckMoving.play();
-		}
-		//give all objects strock width 2 except earth
-		for (int i = 0; i < root.getChildren().size(); i++){
-			if (root.getChildren().get(i) instanceof Rectangle){
-				Rectangle rectangle = (Rectangle) root.getChildren().get(i);
-				rectangle.setStrokeWidth(10);
-			}
+			truck.playAnimation();
 		}
 		jet.setOnKeyPressed(this::keyPressed);
 		jet.setOnKeyReleased(this::keyReleased);
@@ -136,7 +134,6 @@ public class GameMenuViewController extends Application {
 	}
 
 	public void keyPressed(KeyEvent keyEvent) {
-		System.out.println(keyEvent.getCode());
 		Setting setting = GeneralController.getSetting();
 		Jet jet = (Jet) keyEvent.getSource();
 		if (setting.isArrowKeys()){
@@ -184,7 +181,8 @@ public class GameMenuViewController extends Application {
 	}
 
 	private void shootNuke() {
-		if (!game.getBombs().isEmpty()) return;
+		if (!game.getBombs().isEmpty() || game.getNumberOfNuke() == 0) return;
+		game.setNumberOfNuke(game.getNumberOfNuke() - 1);
 		double x = game.getJet().getX();
 		double y = game.getJet().getY();
 		double speed = game.getJet().getSpeed();
@@ -201,7 +199,8 @@ public class GameMenuViewController extends Application {
 	}
 
 	private void shootCluster() {
-		if (!game.getBombs().isEmpty()) return;
+		if (!game.getBombs().isEmpty() || game.getNumberOfCluster() == 0) return;
+		game.setNumberOfCluster(game.getNumberOfCluster() - 1);
 		double x = game.getJet().getX();
 		double y = game.getJet().getY();
 		double speed = game.getJet().getSpeed();

@@ -19,17 +19,6 @@ public class TruckMoving extends Transition {
 
 	@Override
 	protected void interpolate(double v) {
-		double x = truck.getX();
-		double y = truck.getY();
-		double speed = truck.getSpeed();
-		if (truck.isGoingRight()) x += speed;
-		else x -= speed;
-		if (x >= game.getRoot().getWidth()) {
-			x = -truck.getWidth();
-		}
-		else if (x <= -truck.getWidth()) {
-			x = game.getRoot().getWidth();
-		}
-		truck.setX(x);
+		truck.move();
 	}
 }

@@ -1,4 +1,4 @@
-module w1 {
+module w {
 	requires javafx.controls;
 	requires javafx.fxml;
 	requires javafx.media;

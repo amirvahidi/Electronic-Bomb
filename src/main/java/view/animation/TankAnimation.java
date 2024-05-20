@@ -19,18 +19,7 @@ public class TankAnimation extends Transition {
 	
 	@Override
 	protected void interpolate(double v){
-		double x = tank.getX();
-		double y = tank.getY();
-		double speed = tank.getSpeed();
-		if (tank.isGoingRight()) x += speed;
-		else x -= speed;
-		if (x >= game.getRoot().getWidth()) {
-			x = -tank.getWidth();
-		}
-		else if (x <= -tank.getWidth()) {
-			x = game.getRoot().getWidth();
-		}
-		tank.setX(x);
+		tank.move();
 		int idx;
 		if (v < 0.5){
 			idx = 0;

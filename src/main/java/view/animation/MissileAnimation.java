@@ -26,14 +26,9 @@ public class MissileAnimation extends Transition {
 
 	@Override
 	protected void interpolate(double v) {
+		missile.move();
 		double x = missile.getX();
 		double y = missile.getY();
-		double xSpeed = missile.getXSpeed();
-		double ySpeed = missile.getYSpeed();
-		double acceleration = missile.getAcceleration();
-		x += xSpeed;
-		y -= ySpeed;
-		ySpeed -= acceleration;
 		Pane pane = (Pane) missile.getParent();
 		if (x < -missile.getWidth() || x >= pane.getWidth()){
 			System.out.println("Missile out of bound");
@@ -42,40 +37,28 @@ public class MissileAnimation extends Transition {
 			game.removeAnimation(this);
 			this.stop();
 		}
-		if (y >= pane.getHeight() - game.getEarth().getHeight() / 2) {
+		if (y >= pane.getHeight() - game.getEarth().getHeight() / 2){
+			System.out.println("Missile hit the ground");
 			makeExplosion();
 			pane.getChildren().remove(missile);
 			game.removeBomb(missile);
 			game.removeAnimation(this);
 			this.stop();
 		}
-		ArrayList<Target> targets = game.getTargets();
-		for (Target target : targets) {
-			if (missile.checkCollision(target)) {
-				makeExplosion();
-				pane.getChildren().remove(missile);
-				game.removeBomb(missile);
-				game.removeAnimation(this);
-				this.stop();
-				break;
-			}
+
+		if (missile.checkCollision(game)) {
+			System.out.println("Missile hit the target");
+			makeExplosion();
+			pane.getChildren().remove(missile);
+			game.removeBomb(missile);
+			game.removeAnimation(this);
+			this.stop();
 		}
-		missile.setX(x);
-		missile.setY(y);
-		missile.setRotate(-Math.toDegrees(Math.atan2(ySpeed, xSpeed)));
-		missile.setXSpeed(xSpeed);
-		missile.setYSpeed(ySpeed);
+
 	}
 
 	private void makeExplosion() {
-		ArrayList<Target> targets = game.getTargets();
-		for (Target target : targets) {
-			if (missile.checkCollision(target)) {
-				game.getRoot().getChildren().remove(target);
-				game.removeTarget(target);
-				break;
-			}
-		}
+		missile.removeTargets(game);
 		Explosion explosion = new Explosion(missile.getX() - (Constant.MISSILE_EXPLOSION_WIDTH.getValue() / 2 - missile.getWidth()),
 				game.getRoot().getHeight() - game.getEarth().getHeight() / 2 - Constant.MISSILE_EXPLOSION_HEIGHT.getValue(),
 				Constant.MISSILE_EXPLOSION_WIDTH.getValue(), Constant.MISSILE_EXPLOSION_HEIGHT.getValue());

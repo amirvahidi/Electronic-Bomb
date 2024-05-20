@@ -2,9 +2,15 @@ package model;
 
 import enums.Constant;
 import enums.PicturesAddress;
+import javafx.animation.Transition;
+import javafx.application.Application;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import view.AppView;
+import view.animation.JetExplosion;
+import view.menu.MainMenuViewController;
 
 public class Jet extends Rectangle {
 
@@ -15,6 +21,8 @@ public class Jet extends Rectangle {
 	private boolean isGoingDown = false;
 	private boolean isGoingLeft = false;
 	private boolean isGoingRight = false;
+
+	private Transition animation = null;
 
 	public Jet() {
 		super(Constant.JET_WIDTH.getValue(), Constant.JET_HEIGHT.getValue());
@@ -74,6 +82,121 @@ public class Jet extends Rectangle {
 
 	public void setGoingRight(boolean goingRight) {
 		isGoingRight = goingRight;
+	}
+
+	public Transition getAnimation() {
+		return animation;
+	}
+
+	public void setAnimation(Transition animation) {
+		this.animation = animation;
+	}
+
+	public void playAnimation() {
+		animation.play();
+	}
+
+	public void stopAnimation() {
+		animation.stop();
+	}
+
+	public void pauseAnimation() {
+		animation.pause();
+	}
+
+	public void updateAngle(){
+		double angle = this.getAngle();
+		double angleChange = 0.2;
+		double y = this.getY();
+		if (y <= this.getWidth() && angle > 0 && angle < 90){
+			angle -= 3 * angleChange;
+		}
+		else if (y <= this.getWidth() && angle < 180 && angle >= 90){
+			angle += 3 * angleChange;
+		}
+		else if (this.isGoingUp()){
+			if (angle > 90 && angle <= 270){
+				angle -= angleChange;
+			}
+			else if (angle < 90 || angle >= 270){
+				angle += angleChange;
+			}
+		}
+		else if (this.isGoingDown()){
+			if (angle >= 90 && angle < 270){
+				angle += angleChange;
+			}
+			else if (angle <= 90 || angle > 270){
+				angle -= angleChange;
+			}
+		}
+		else if (this.isGoingLeft()){
+			if (angle >= 0 && angle < 180){
+				angle += angleChange;
+			}
+			else if (angle <= 0 || angle > 180){
+				angle -= angleChange;
+			}
+		}
+		else if (this.isGoingRight()){
+			if (angle > 0 && angle <= 180){
+				angle -= angleChange;
+			}
+			else if (angle < 0 || angle >= 180){
+				angle += angleChange;
+			}
+		}
+		this.setAngle(angle);
+	}
+
+	public void move() {
+		Pane pane = (Pane) this.getParent();
+		double angle = this.getAngle();
+		double speed = this.getSpeed();
+		double x = this.getX();
+		double y = this.getY();
+		if (angle > 90 && angle <= 270){
+			this.setScaleY(-1);
+		}
+		else{
+			this.setScaleY(1);
+		}
+		x += speed * Math.cos(Math.toRadians(angle));
+		y -= speed * Math.sin(Math.toRadians(angle));
+		if (x <= -this.getWidth()){
+			x = pane.getWidth();
+		}
+		else if (x >= pane.getWidth()){
+			x = -this.getWidth();
+		}
+		this.setRotate(-angle);
+		this.setAngle(angle);
+		this.setX(x);
+		this.setY(y);
+	}
+
+	public void explode(Game game) {
+		Explosion explosion = new Explosion(this.getX() - (Constant.JET_EXPLOSION_WIDTH.getValue() - this.getWidth()) / 2,
+				this.getY() - (Constant.JET_EXPLOSION_HEIGHT.getValue() - this.getHeight()) / 2,
+				Constant.JET_EXPLOSION_WIDTH.getValue(), Constant.JET_EXPLOSION_HEIGHT.getValue());
+		Pane root = game.getRoot();
+		root.getChildren().add(explosion);
+		game.addExplosion(explosion);
+		JetExplosion jetExplosion = new JetExplosion(game, explosion);
+		game.addAnimation(jetExplosion);
+		jetExplosion.play();
+		game.setNumberOfLive(game.getNumberOfLive() - 1);
+		if (game.getNumberOfLive() == 0){
+
+			game.gameOver();
+			Application menu = new MainMenuViewController();
+			AppView.setCurrentMenu(menu);
+			try {
+				menu.start(AppView.getStage());
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
 	}
 
 	public void reset() {

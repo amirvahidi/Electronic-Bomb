@@ -21,7 +21,6 @@ public class JetExplosion extends Transition {
 
 	@Override
 	protected void interpolate(double v) {
-		System.out.println(v);
 		int sz = 4;
 		v *= sz;
 		for (int i = 1; i <= sz; i++) {

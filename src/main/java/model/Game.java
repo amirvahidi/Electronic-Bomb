@@ -1,6 +1,7 @@
 package model;
 
 import javafx.animation.Transition;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
@@ -14,13 +15,23 @@ public class Game {
 	private Rectangle earth;
 	private Setting setting;
 
+	private int numberOfCluster = 0;
+	private int numberOfNuke = 0;
+	private int numberOfLive = 3;
+
+
+	private ArrayList<Bonus> bonuses = new ArrayList<>();
 	private ArrayList<Bomb> bombs = new ArrayList<>();
+
+	private ArrayList<AttackingBomb> attackingBombs = new ArrayList<>();
 
 	private ArrayList<Transition> animations = new ArrayList<>();
 
 	private ArrayList<Explosion> explosions = new ArrayList<>();
 
 	private ArrayList<Target> targets = new ArrayList<>();
+
+	private ArrayList<Node> additions = new ArrayList<>();
 
 	public Game() {
 		this.setting = new Setting(App.getCurrentUser().getSetting());
@@ -99,12 +110,76 @@ public class Game {
 		targets.remove(target);
 	}
 
+	public ArrayList<Node> getAdditions(){
+		return new ArrayList<>(additions);
+	}
+
+	public void addAddition(Node node){
+		additions.add(node);
+	}
+
+	public void removeAddition(Node node){
+		additions.remove(node);
+	}
+
+	public ArrayList<Bonus> getBonuses() {
+		return new ArrayList<>(bonuses);
+	}
+
+	public void addBonus(Bonus bonus) {
+		bonuses.add(bonus);
+	}
+
+	public void removeBonus(Bonus bonus) {
+		bonuses.remove(bonus);
+	}
+
+	public ArrayList<AttackingBomb> getAttackingBombs() {
+		return new ArrayList<>(attackingBombs);
+	}
+
+	public void addAttackingBomb(AttackingBomb bomb) {
+		attackingBombs.add(bomb);
+	}
+
+	public void removeAttackingBomb(AttackingBomb bomb) {
+		attackingBombs.remove(bomb);
+	}
+
 	public Pane getRoot() {
 		return root;
 	}
 
 	public void setRoot(Pane root) {
 		this.root = root;
+	}
+
+	public int getNumberOfCluster() {
+		return numberOfCluster;
+	}
+
+	public void setNumberOfCluster(int numberOfCluster) {
+		this.numberOfCluster = numberOfCluster;
+	}
+
+	public int getNumberOfNuke() {
+		return numberOfNuke;
+	}
+
+	public void setNumberOfNuke(int numberOfNuke) {
+		this.numberOfNuke = numberOfNuke;
+	}
+
+	public int getNumberOfLive() {
+		return numberOfLive;
+	}
+
+	public void setNumberOfLive(int numberOfLive) {
+		this.numberOfLive = numberOfLive;
+	}
+
+	public void gameOver() {
+		//TODO:
 	}
 
 	public enum Images {
@@ -118,7 +193,11 @@ public class Game {
 		TREE_1(new ImagePattern(new Image(Images.class.getResource("/assets/tree/1.png").toExternalForm()))),
 		TREE_2(new ImagePattern(new Image(Images.class.getResource("/assets/tree/2.png").toExternalForm()))),
 		TREE_3(new ImagePattern(new Image(Images.class.getResource("/assets/tree/3.png").toExternalForm()))),
-		GRASS(new ImagePattern(new Image(Images.class.getResource("/assets/Grass.png").toExternalForm())));
+		GRASS(new ImagePattern(new Image(Images.class.getResource("/assets/Grass.png").toExternalForm()))),
+		MIG(new ImagePattern(new Image(Images.class.getResource("/assets/mig.png").toExternalForm()))),
+		NUKE_BONUS(new ImagePattern(new Image(Images.class.getResource("/assets/nukebonus.png").toExternalForm()))),
+		CLUSTER_BONUS(new ImagePattern(new Image(Images.class.getResource("/assets/clusterbonus.png").toExternalForm())));
+
 		private final ImagePattern value;
 
 		Images(ImagePattern value) {
@@ -157,8 +236,8 @@ public class Game {
 				new ImagePattern(new Image(Images.class.getResource("/assets/jetexplosion/4.png").toExternalForm()))
 		}),
 		BASE_ANIMATION(new ImagePattern[]{
-				new ImagePattern(new Image(Images.class.getResource("/assets/bunker/1.png").toExternalForm())),
-				new ImagePattern(new Image(Images.class.getResource("/assets/bunker/2.png").toExternalForm()))
+				new ImagePattern(new Image(Images.class.getResource("/assets/base/1.png").toExternalForm())),
+				new ImagePattern(new Image(Images.class.getResource("/assets/base/2.png").toExternalForm()))
 		}),
 		BUNKER_ANIMATION(new ImagePattern[]{
 				new ImagePattern(new Image(Images.class.getResource("/assets/bunker/1.png").toExternalForm())),
@@ -167,6 +246,19 @@ public class Game {
 		TANK_ANIMATION(new ImagePattern[]{
 				new ImagePattern(new Image(Images.class.getResource("/assets/tank/1.png").toExternalForm())),
 				new ImagePattern(new Image(Images.class.getResource("/assets/tank/2.png").toExternalForm()))
+		}),
+		ATTACK_TANK_ANIMATION(new ImagePattern[]{
+				new ImagePattern(new Image(Images.class.getResource("/assets/attacktank/1.png").toExternalForm())),
+				new ImagePattern(new Image(Images.class.getResource("/assets/attacktank/2.png").toExternalForm()))
+		}),
+		FIRE_ANIMATION(new ImagePattern[]{
+				new ImagePattern(new Image(Images.class.getResource("/assets/fire/1.png").toExternalForm())),
+				new ImagePattern(new Image(Images.class.getResource("/assets/fire/2.png").toExternalForm())),
+				new ImagePattern(new Image(Images.class.getResource("/assets/fire/3.png").toExternalForm()))
+		}),
+		ATTACKING_BOMB_ANIMATION(new ImagePattern[]{
+				new ImagePattern(new Image(Images.class.getResource("/assets/attackingbomb/1.png").toExternalForm())),
+				new ImagePattern(new Image(Images.class.getResource("/assets/attackingbomb/2.png").toExternalForm()))
 		});
 
 		private final ImagePattern[] value;

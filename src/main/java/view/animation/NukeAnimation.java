@@ -27,14 +27,9 @@ public class NukeAnimation extends Transition {
 
 	@Override
 	protected void interpolate(double v) {
+		nuke.move();
 		double x = nuke.getX();
 		double y = nuke.getY();
-		double xSpeed = nuke.getXSpeed();
-		double ySpeed = nuke.getYSpeed();
-		double acceleration = nuke.getAcceleration();
-		x += xSpeed;
-		y -= ySpeed;
-		ySpeed -= acceleration;
 		if (x < -nuke.getWidth() || x >= game.getRoot().getWidth()){
 			game.getRoot().getChildren().remove(nuke);
 			game.removeBomb(nuke);
@@ -49,34 +44,20 @@ public class NukeAnimation extends Transition {
 			game.removeAnimation(this);
 			this.stop();
 		}
-		ArrayList<Target> targets = game.getTargets();
-		for (Target target : targets) {
-			if (nuke.checkCollision(target)) {
-				makeExplosion();
-				System.out.println("Nuke hit the target");
-				game.getRoot().getChildren().remove(nuke);
-				game.removeBomb(nuke);
-				game.removeAnimation(this);
-				this.stop();
-				break;
-			}
+
+		if (nuke.checkCollision(game)) {
+			makeExplosion();
+			System.out.println("Nuke hit the target");
+			game.getRoot().getChildren().remove(nuke);
+			game.removeBomb(nuke);
+			game.removeAnimation(this);
+			this.stop();
 		}
-		nuke.setX(x);
-		nuke.setY(y);
-		nuke.setRotate(-Math.toDegrees(Math.atan2(ySpeed, xSpeed)));
-		nuke.setXSpeed(xSpeed);
-		nuke.setYSpeed(ySpeed);
+
 	}
 
 	private void makeExplosion() {
-		ArrayList<Target> targets = game.getTargets();
-		for (Target target : targets) {
-			if (nuke.checkInRange(target)) {
-				//TODO: stop the target animation
-				game.getRoot().getChildren().remove(target);
-				game.removeTarget(target);
-			}
-		}
+		nuke.removeTargets(game);
 		Explosion explosion = new Explosion();
 		Explosion topExplosion = new Explosion();
 		double stX = nuke.getX() + nuke.getWidth() / 2;

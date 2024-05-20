@@ -1,5 +1,8 @@
 package model;
 
+import enums.Constant;
+import javafx.animation.Transition;
+
 public abstract class DynamicTarget extends Target {
 
 	double speed;
@@ -8,6 +11,9 @@ public abstract class DynamicTarget extends Target {
 		super(x, y, width, height);
 		this.goingRight = goingRight;
 		this.speed = speed;
+		if (!goingRight) {
+			this.setScaleX(-1);
+		}
 	}
 
 	public double getSpeed() {
@@ -24,5 +30,21 @@ public abstract class DynamicTarget extends Target {
 
 	public void setSpeed(double speed) {
 		this.speed = speed;
+	}
+
+	public void move(){
+		if (goingRight) {
+			setX(getX() + speed);
+		} else {
+			setX(getX() - speed);
+		}
+		if (getX() <= 0){
+			goingRight = true;
+			setScaleX(1);
+		}
+		if (getX() >= Constant.SCENE_WIDTH.getValue() - getWidth()){
+			goingRight = false;
+			setScaleX(-1);
+		}
 	}
 }

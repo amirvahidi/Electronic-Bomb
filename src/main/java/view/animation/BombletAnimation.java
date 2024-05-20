@@ -24,14 +24,9 @@ public class BombletAnimation extends Transition {
 
 	@Override
 	protected void interpolate(double v) {
+		bomblet.move();
 		double x = bomblet.getX();
 		double y = bomblet.getY();
-		double xSpeed = bomblet.getXSpeed();
-		double ySpeed = bomblet.getYSpeed();
-		double acceleration = bomblet.getAcceleration();
-		x += xSpeed;
-		y -= ySpeed;
-		ySpeed -= acceleration;
 		if (x < -bomblet.getWidth() || x >= game.getRoot().getWidth()){
 			game.getRoot().getChildren().remove(bomblet);
 			game.removeBomb(bomblet);
@@ -46,34 +41,18 @@ public class BombletAnimation extends Transition {
 			game.removeAnimation(this);
 			this.stop();
 		}
-		ArrayList<Target> targets = game.getTargets();
-		for (Target target : targets) {
-			if (bomblet.checkCollision(target)) {
-				makeExplosion();
-				System.out.println("Bomblet hit the target");
-				game.getRoot().getChildren().remove(bomblet);
-				game.removeBomb(bomblet);
-				game.removeAnimation(this);
-				this.stop();
-				break;
-			}
+		if (bomblet.checkCollision(game)) {
+			makeExplosion();
+			System.out.println("Bomblet hit the target");
+			game.getRoot().getChildren().remove(bomblet);
+			game.removeBomb(bomblet);
+			game.removeAnimation(this);
+			this.stop();
 		}
-		bomblet.setX(x);
-		bomblet.setY(y);
-		bomblet.setRotate(-Math.toDegrees(Math.atan2(ySpeed, xSpeed)));
-		bomblet.setXSpeed(xSpeed);
-		bomblet.setYSpeed(ySpeed);
 	}
 
 	private void makeExplosion() {
-		ArrayList<Target> targets = game.getTargets();
-		for (Target target : targets) {
-			if (bomblet.checkInRange(target)) {
-				//TODO: stop target animation
-				game.getRoot().getChildren().remove(target);
-				game.removeTarget(target);
-			}
-		}
+		bomblet.removeTargets(game);
 		Explosion explosion = new Explosion(bomblet.getX() - (Constant.BOMBLET_EXPLOSION_WIDTH.getValue() / 2 - bomblet.getWidth()),
 				game.getRoot().getHeight() - game.getEarth().getHeight() / 2 - Constant.BOMBLET_EXPLOSION_HEIGHT.getValue(),
 				Constant.BOMBLET_EXPLOSION_WIDTH.getValue(), Constant.BOMBLET_EXPLOSION_HEIGHT.getValue());

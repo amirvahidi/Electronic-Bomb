@@ -1,6 +1,7 @@
 package model;
 
 import enums.Constant;
+import javafx.animation.Transition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
