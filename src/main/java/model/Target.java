@@ -1,5 +1,6 @@
 package model;
 
+import controller.GameMenuController;
 import javafx.scene.shape.Rectangle;
 import javafx.animation.Transition;
 import view.animation.FireAnimation;
@@ -26,7 +27,9 @@ public abstract class Target extends Rectangle {
 	}
 
 	public void stopAnimation() {
-		if (animation == null) return;
+		if (animation == null){
+			return;
+		}
 		animation.stop();
 	}
 
@@ -36,6 +39,7 @@ public abstract class Target extends Rectangle {
 	}
 
 	public void destroy(Game game) {
+		GameMenuController.addKill();
 		stopAnimation();
 		game.removeAnimation(animation);
 		double x = getX();
@@ -46,7 +50,6 @@ public abstract class Target extends Rectangle {
 		FireAnimation fireAnimation = new FireAnimation(fire, this, game);
 		game.addAnimation(fireAnimation);
 		fireAnimation.play();
-
 	}
 
 	public void remove(Game game) {

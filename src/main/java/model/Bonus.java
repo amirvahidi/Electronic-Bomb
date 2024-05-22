@@ -34,7 +34,10 @@ public abstract class Bonus extends Rectangle {
 	}
 
 	public void stopAnimation() {
-		if (animation == null) return;
+		if (animation == null){
+			System.out.println("lolololo");
+			return;
+		}
 		animation.stop();
 	}
 

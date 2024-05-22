@@ -1,5 +1,6 @@
 package model;
 
+import controller.GameMenuController;
 import enums.Constant;
 import enums.PicturesAddress;
 import javafx.animation.Transition;
@@ -150,6 +151,7 @@ public class Jet extends Rectangle {
 	}
 
 	public void move() {
+		GameMenuController.checkEndWave();
 		Pane pane = (Pane) this.getParent();
 		double angle = this.getAngle();
 		double speed = this.getSpeed();
@@ -185,9 +187,8 @@ public class Jet extends Rectangle {
 		JetExplosion jetExplosion = new JetExplosion(game, explosion);
 		game.addAnimation(jetExplosion);
 		jetExplosion.play();
-		game.setNumberOfLive(game.getNumberOfLive() - 1);
+		GameMenuController.removeLive();
 		if (game.getNumberOfLive() == 0){
-
 			game.gameOver();
 			Application menu = new MainMenuViewController();
 			AppView.setCurrentMenu(menu);

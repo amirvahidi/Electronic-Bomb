@@ -30,24 +30,24 @@ public class BombletAnimation extends Transition {
 		if (x < -bomblet.getWidth() || x >= game.getRoot().getWidth()){
 			game.getRoot().getChildren().remove(bomblet);
 			game.removeBomb(bomblet);
-			game.removeAnimation(this);
 			this.stop();
+			game.removeAnimation(this);
 		}
 		if (y >= game.getRoot().getHeight() - game.getEarth().getHeight() / 2) {
 			makeExplosion();
 			System.out.println("Bomblet hit the ground");
 			game.getRoot().getChildren().remove(bomblet);
 			game.removeBomb(bomblet);
-			game.removeAnimation(this);
 			this.stop();
+			game.removeAnimation(this);
 		}
 		if (bomblet.checkCollision(game)) {
 			makeExplosion();
 			System.out.println("Bomblet hit the target");
 			game.getRoot().getChildren().remove(bomblet);
 			game.removeBomb(bomblet);
-			game.removeAnimation(this);
 			this.stop();
+			game.removeAnimation(this);
 		}
 	}
 

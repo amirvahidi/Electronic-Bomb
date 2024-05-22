@@ -34,16 +34,16 @@ public class MissileAnimation extends Transition {
 			System.out.println("Missile out of bound");
 			pane.getChildren().remove(missile);
 			game.removeBomb(missile);
-			game.removeAnimation(this);
 			this.stop();
+			game.removeAnimation(this);
 		}
 		if (y >= pane.getHeight() - game.getEarth().getHeight() / 2){
 			System.out.println("Missile hit the ground");
 			makeExplosion();
 			pane.getChildren().remove(missile);
 			game.removeBomb(missile);
-			game.removeAnimation(this);
 			this.stop();
+			game.removeAnimation(this);
 		}
 
 		if (missile.checkCollision(game)) {
@@ -51,8 +51,8 @@ public class MissileAnimation extends Transition {
 			makeExplosion();
 			pane.getChildren().remove(missile);
 			game.removeBomb(missile);
-			game.removeAnimation(this);
 			this.stop();
+			game.removeAnimation(this);
 		}
 
 	}

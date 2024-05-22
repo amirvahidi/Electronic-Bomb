@@ -33,15 +33,15 @@ public class AttackingBombAnimation extends Transition {
 			System.out.println("Bomb out of bounds");
 			game.getRoot().getChildren().remove(bomb);
 			game.removeAttackingBomb(bomb);
-			game.removeAnimation(this);
 			this.stop();
+			game.removeAnimation(this);
 		}
 		if (y < 0 || y >= game.getRoot().getHeight()){
 			System.out.println("Bomb out of bounds");
 			game.getRoot().getChildren().remove(bomb);
 			game.removeAttackingBomb(bomb);
-			game.removeAnimation(this);
 			this.stop();
+			game.removeAnimation(this);
 		}
 		if (game.getJet().intersects(bomb.getBoundsInLocal())){
 			System.out.println("Jet hit by bomb");

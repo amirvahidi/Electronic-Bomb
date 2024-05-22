@@ -1,5 +1,6 @@
 package model;
 
+import controller.GameMenuController;
 import enums.Constant;
 public class ClusterBonus extends Bonus {
 
@@ -13,8 +14,8 @@ public class ClusterBonus extends Bonus {
 		System.out.println("Cluster Bonus is collected");
 		game.getBonuses().remove(this);
 		game.getRoot().getChildren().remove(this);
-		game.removeAnimation(this.getAnimation());
 		this.stopAnimation();
-		game.setNumberOfCluster(game.getNumberOfCluster() + 1);
+		game.removeAnimation(this.getAnimation());
+		GameMenuController.addCluster();
 	}
 }

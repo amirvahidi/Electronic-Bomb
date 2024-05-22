@@ -112,10 +112,6 @@ public class SettingMenuViewController extends Application {
 		if (selectedButton.isSelected()) {
 			if (selectedButton == blackWhiteButton) {
 				coloringButton.setSelected(false);
-				ColorAdjust colorAdjust = new ColorAdjust();
-				colorAdjust.setSaturation(-1);
-				colorAdjust.setBrightness(-0.5);
-				AppView.getStage().getScene().getRoot().setEffect(colorAdjust);
 			} else {
 				blackWhiteButton.setSelected(false);
 				AppView.getStage().getScene().getRoot().setEffect(null);

@@ -1,24 +1,41 @@
 package model;
 
 import javafx.animation.Transition;
+import javafx.application.Application;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import view.AppView;
+import view.animation.JetMoving;
+import view.menu.MainMenuViewController;
 
 import java.util.ArrayList;
 
 public class Game {
+	private static Game instance = null;
 	private Jet jet;
 	private Pane root;
 	private Rectangle earth;
+
+	private Label killCountField;
+	private Label liveCountField;
+	private Label clusterCountField;
+	private Label nukeCountField;
 	private Setting setting;
 
+	private int numberOfKill = 0;
+	private int numberOfShoot = 0;
+
+	private int numberOfWaveKill = 0;
+	private int numberOfWaveShoot = 0;
 	private int numberOfCluster = 0;
 	private int numberOfNuke = 0;
 	private int numberOfLive = 3;
 
+	private int waveNumber = 1;
 
 	private ArrayList<Bonus> bonuses = new ArrayList<>();
 	private ArrayList<Bomb> bombs = new ArrayList<>();
@@ -35,6 +52,14 @@ public class Game {
 
 	public Game() {
 		this.setting = new Setting(App.getCurrentUser().getSetting());
+	}
+
+	public static Game getInstance() {
+		return instance;
+	}
+
+	public static void setInstance(Game instance) {
+		Game.instance = instance;
 	}
 
 
@@ -180,6 +205,115 @@ public class Game {
 
 	public void gameOver() {
 		//TODO:
+		for (Transition animation : animations) {
+			animation.stop();
+		}
+		setInstance(null);
+		Application menu = new MainMenuViewController();
+		AppView.setCurrentMenu(menu);
+		try {
+			menu.start(AppView.getStage());
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public int getWaveNumber() {
+		return waveNumber;
+	}
+
+	public void setWaveNumber(int waveNumber) {
+		this.waveNumber = waveNumber;
+	}
+
+	public void clear() {
+		ArrayList<Transition> animations2 = new ArrayList<>(animations);
+		for (Transition animation: animations2){
+			if (animation instanceof JetMoving) continue;
+			animation.stop();
+			additions.remove(animation);
+		}
+		for (Bomb bomb: bombs){
+			getRoot().getChildren().remove(bomb);
+		}
+		for (Explosion explosion: explosions){
+			getRoot().getChildren().remove(explosion);
+		}
+		ArrayList<Target> targets1 = new ArrayList<>(targets);
+		for (Target target: targets1){
+			target.remove(this);
+		}
+		for (Node addition: additions){
+			getRoot().getChildren().remove(addition);
+		}
+		for (Bonus bonus: bonuses){
+			getRoot().getChildren().remove(bonus);
+		}
+		for (AttackingBomb attackingBomb: attackingBombs){
+			getRoot().getChildren().remove(attackingBomb);
+		}
+		bombs.clear();
+		explosions.clear();
+		targets.clear();
+		additions.clear();
+		bonuses.clear();
+		attackingBombs.clear();
+	}
+
+	public Label getKillCountField() {
+		return killCountField;
+	}
+
+	public void setKillCountField(Label killCountField) {
+		this.killCountField = killCountField;
+	}
+
+	public Label getLiveCountField() {
+		return liveCountField;
+	}
+
+	public void setLiveCountField(Label liveCountField) {
+		this.liveCountField = liveCountField;
+	}
+
+	public Label getClusterCountField() {
+		return clusterCountField;
+	}
+
+	public void setClusterCountField(Label clusterCountField) {
+		this.clusterCountField = clusterCountField;
+	}
+
+	public Label getNukeCountField() {
+		return nukeCountField;
+	}
+
+	public void setNukeCountField(Label nukeCountField) {
+		this.nukeCountField = nukeCountField;
+	}
+
+	public int getNumberOfKill() {
+		return numberOfKill;
+	}
+
+	public void setNumberOfKill(int numberOfKill) {
+		this.numberOfKill = numberOfKill;
+	}
+
+	public int getNumberOfShoot() {
+		return numberOfShoot;
+	}
+
+	public void setNumberOfShoot(int numberOfShoot) {
+		this.numberOfShoot = numberOfShoot;
+	}
+
+	public int getNumberOfWaveKill() {
+		return numberOfWaveKill;
+	}
+
+	public void setNumberOfWaveKill(int numberOfWaveKill) {
+		this.numberOfWaveKill = numberOfWaveKill;
 	}
 
 	public enum Images {

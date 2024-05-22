@@ -32,8 +32,8 @@ public class ClusterAnimation extends Transition {
 		if (x < -cluster.getWidth() || x >= game.getRoot().getWidth()){
 			game.getRoot().getChildren().remove(cluster);
 			game.removeBomb(cluster);
-			game.removeAnimation(this);
 			this.stop();
+			game.removeAnimation(this);
 		}
 		double height = game.getRoot().getHeight();
 		if (y >= height - height / 3) {
@@ -47,8 +47,8 @@ public class ClusterAnimation extends Transition {
 			}
 			game.getRoot().getChildren().remove(cluster);
 			game.removeBomb(cluster);
-			game.removeAnimation(this);
 			this.stop();
+			game.removeAnimation(this);
 		}
 		cluster.setX(x);
 		cluster.setY(y);

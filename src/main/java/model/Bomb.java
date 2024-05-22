@@ -1,5 +1,6 @@
 package model;
 
+import controller.GameMenuController;
 import enums.Constant;
 import javafx.animation.Transition;
 import javafx.scene.layout.Pane;
@@ -59,18 +60,23 @@ public abstract class Bomb extends Rectangle {
 	}
 
 	public void stopAnimation() {
-		animation.stop();
+		if (animation == null) System.out.println("lolololo");
+		if (animation != null) animation.stop();
 	}
 
 	public boolean checkCollision(Target target) {
 		return this.getBoundsInParent().intersects(target.getBoundsInParent());
 	}
 
-	public boolean checkInRange(double x, double y) {
-		double dx = Math.abs(this.getX() - x);
-		double dy = Math.abs(this.getY() - y);
-		double distance = Math.sqrt(dx * dx + dy * dy);
-		return distance <= this.range;
+	public boolean checkInRange(Target target) {
+		for (int i = 0; i < 4; i++){
+			double x = target.getX() + (i % 2 == 1? target.getWidth(): 0);
+			double y = target.getY() + ((i / 2) % 2 == 1? target.getHeight(): 0);
+			double dx = Math.abs(getX() - x);
+			double dy = Math.abs(getY() - y);
+			if (Math.sqrt(dx * dx + dy * dy) <= range) return true;
+		}
+		return false;
 	}
 
 	public void move() {
@@ -94,7 +100,7 @@ public abstract class Bomb extends Rectangle {
 	public void removeTargets(Game game){
 		ArrayList<Target> targets = game.getTargets();
 		for (Target target : targets) {
-			if (this.checkInRange(target.getX(), target.getY())) {
+			if (this.checkInRange(target)) {
 				target.destroy(game);
 			}
 		}

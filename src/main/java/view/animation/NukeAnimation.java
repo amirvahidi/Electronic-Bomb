@@ -33,16 +33,16 @@ public class NukeAnimation extends Transition {
 		if (x < -nuke.getWidth() || x >= game.getRoot().getWidth()){
 			game.getRoot().getChildren().remove(nuke);
 			game.removeBomb(nuke);
-			game.removeAnimation(this);
 			this.stop();
+			game.removeAnimation(this);
 		}
 		if (y >= game.getRoot().getHeight() - game.getEarth().getHeight() / 2) {
 			makeExplosion();
 			System.out.println("Nuke hit the ground");
 			game.getRoot().getChildren().remove(nuke);
 			game.removeBomb(nuke);
-			game.removeAnimation(this);
 			this.stop();
+			game.removeAnimation(this);
 		}
 
 		if (nuke.checkCollision(game)) {
@@ -50,8 +50,8 @@ public class NukeAnimation extends Transition {
 			System.out.println("Nuke hit the target");
 			game.getRoot().getChildren().remove(nuke);
 			game.removeBomb(nuke);
-			game.removeAnimation(this);
 			this.stop();
+			game.removeAnimation(this);
 		}
 
 	}

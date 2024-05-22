@@ -11,9 +11,9 @@ public abstract class AttackingTarget extends DynamicTarget {
 
 	public AttackingTarget(double x, double y, double width, double height, boolean goingRight, double speed, double range) {
 		super(x, y, width, height, goingRight, speed);
-		this.range = range;
+		this.range = range * Game.getInstance().getSetting().getDifficulty();
 		rangeCircle = new Circle();
-		rangeCircle.setRadius(range);
+		rangeCircle.setRadius(this.range);
 		rangeCircle.setCenterX(x + width / 2);
 		rangeCircle.setCenterY(y + height / 2);
 		rangeCircle.setStroke(Color.RED);

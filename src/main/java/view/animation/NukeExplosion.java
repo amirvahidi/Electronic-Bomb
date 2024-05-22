@@ -69,8 +69,8 @@ public class NukeExplosion extends Transition {
 			game.getRoot().getChildren().remove(topExplosion);
 			game.removeExplosion(explosion);
 			game.removeExplosion(topExplosion);
-			game.removeAnimation(this);
 			this.stop();
+			game.removeAnimation(this);
 		}
 	}
 }

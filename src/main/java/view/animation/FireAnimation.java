@@ -29,8 +29,8 @@ public class FireAnimation extends Transition {
 		if (v >= lim){
 			game.getRoot().getChildren().remove(explosion);
 			game.removeExplosion(explosion);
-			game.removeAnimation(this);
 			this.stop();
+			game.removeAnimation(this);
 			target.remove(game);
 		}
 	}

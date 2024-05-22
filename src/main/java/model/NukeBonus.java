@@ -1,5 +1,6 @@
 package model;
 
+import controller.GameMenuController;
 import enums.Constant;
 import javafx.scene.shape.Rectangle;
 
@@ -15,8 +16,8 @@ public class NukeBonus extends Bonus {
 		System.out.println("Nuke Bonus is collected");
 		game.getBonuses().remove(this);
 		game.getRoot().getChildren().remove(this);
-		game.removeAnimation(this.getAnimation());
 		this.stopAnimation();
-		game.setNumberOfNuke(game.getNumberOfNuke() + 1);
+		game.removeAnimation(this.getAnimation());
+		GameMenuController.addNuke();
 	}
 }

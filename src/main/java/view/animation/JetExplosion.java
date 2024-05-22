@@ -33,8 +33,8 @@ public class JetExplosion extends Transition {
 			Pane root = game.getRoot();
 			root.getChildren().remove(explosion);
 			game.removeExplosion(explosion);
-			game.removeAnimation(this);
 			this.stop();
+			game.removeAnimation(this);
 		}
 	}
 }

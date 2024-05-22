@@ -1,6 +1,8 @@
 package view.animation;
 
 import javafx.animation.Transition;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.util.Duration;
 import model.AttackTank;
 import model.AttackingBomb;
@@ -30,6 +32,8 @@ public class AttackingTankAnimation extends Transition {
 		}
 		attackTank.setFill(Game.AnimationPictures.ATTACK_TANK_ANIMATION.getValue()[idx]);
 		attackTank.move();
+
+
 		if (v >= 1 && attackTank.isInRange(game.getJet().getX(), game.getJet().getY())){
 			double dx = game.getJet().getX() - (attackTank.getX() + attackTank.getWidth() / 2);
 			double dy = game.getJet().getY() - (attackTank.getY() + attackTank.getHeight() / 2);

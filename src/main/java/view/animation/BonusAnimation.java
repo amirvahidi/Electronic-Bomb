@@ -26,8 +26,8 @@ public class BonusAnimation extends Transition {
 			System.out.println("Nuke Bonus is removed");
 			game.getBonuses().remove(bonus);
 			game.getRoot().getChildren().remove(bonus);
-			game.removeAnimation(this);
 			stop();
+			game.removeAnimation(this);
 		}
 		if (bonus.isCollidingWith(game.getJet())) {
 			System.out.println("Nuke Bonus is collected");
