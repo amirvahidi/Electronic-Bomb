@@ -71,7 +71,9 @@ public class MainMenuViewController extends Application {
 		AppView.getCurrentMenu().start(AppView.getStage());
 	}
 
-	public void highScore(MouseEvent mouseEvent) {
+	public void highScore(MouseEvent mouseEvent) throws Exception {
+		AppView.setCurrentMenu(new HighScoreMenuViewController());
+		AppView.getCurrentMenu().start(AppView.getStage());
 	}
 
 	public void exit(MouseEvent mouseEvent) {

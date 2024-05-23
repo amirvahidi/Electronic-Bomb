@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import javafx.embed.swing.SwingFXUtils;
 import javax.imageio.ImageIO;
 import java.io.File;
+import java.io.IOException;
 
 public class User {
 	private String username;
@@ -11,7 +12,9 @@ public class User {
 
 	private final Setting setting;
 	private final boolean guest;
-	private Image icon;
+
+	private String pathOfIcon;
+	private transient Image icon;
 
 	public User(String username, String password, boolean guest) throws Exception {
 		this.username = username;
@@ -26,6 +29,8 @@ public class User {
 		int iconNumber = (int) (Math.random() * numberOfIcons) + 1;
 		File file = new File(User.class.getResource("/assets/icon/" + iconNumber + ".png").getPath());
 		this.icon = SwingFXUtils.toFXImage(ImageIO.read(file), null);
+		this.pathOfIcon = file.getPath();
+		System.out.println(this.pathOfIcon);
 		if (this.icon == null) {
 			System.out.println("Couldn't find file: 1.png");
 			System.exit(-1);
@@ -37,8 +42,18 @@ public class User {
 		return this.icon;
 	}
 
-	public void setIcon(Image icon) {
+	public void setIcon(Image icon, String path) {
 		this.icon = icon;
+		this.pathOfIcon = path;
+	}
+
+	public void fixTheIcon(){
+		File file = new File(pathOfIcon);
+		try {
+			this.icon = SwingFXUtils.toFXImage(ImageIO.read(file), null);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public void setUsername(String username) {
@@ -63,5 +78,9 @@ public class User {
 
 	public Setting getSetting() {
 		return setting;
+	}
+
+	public String getPathOfIcon() {
+		return pathOfIcon;
 	}
 }

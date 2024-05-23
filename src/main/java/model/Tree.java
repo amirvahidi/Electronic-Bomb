@@ -1,5 +1,6 @@
 package model;
 
+import controller.GameMenuController;
 import enums.Constant;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
@@ -17,5 +18,11 @@ public class Tree extends Target {
 		else if (idx == 3){
 			this.setFill(Game.Images.TREE_3.getValue());
 		}
+	}
+
+	@Override
+	public void destroy(Game game) {
+		super.destroy(game);
+		GameMenuController.removeKill();
 	}
 }

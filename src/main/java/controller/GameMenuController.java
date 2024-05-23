@@ -21,6 +21,7 @@ public class GameMenuController {
 	private static Label waveField;
 
 	public static void shootNuke() {
+		addShoot();
 		Game game = Game.getInstance();
 		if (!game.getBombs().isEmpty() || game.getNumberOfNuke() == 0) return;
 		removeNuke();
@@ -39,7 +40,15 @@ public class GameMenuController {
 		nukeMoving.play();
 	}
 
+	private static void addShoot() {
+		Game game = Game.getInstance();
+		game.setNumberOfShoot(game.getNumberOfShoot() + 1);
+		game.setNumberOfWaveShoot(game.getNumberOfWaveShoot() + 1);
+		setValues();
+	}
+
 	public static void shootCluster() {
+		addShoot();
 		Game game = Game.getInstance();
 		if (!game.getBombs().isEmpty() || game.getNumberOfCluster() == 0) return;
 		removeCluster();
@@ -59,6 +68,7 @@ public class GameMenuController {
 	}
 
 	public static void shootMissile() {
+		addShoot();
 		Game game = Game.getInstance();
 		if (!game.getBombs().isEmpty()) return;
 		double x = game.getJet().getX();
@@ -218,6 +228,9 @@ public class GameMenuController {
 	public static void checkEndWave() {
 		Game game = Game.getInstance();
 		if (game.getTargets().isEmpty()){
+			//TODO: show accuracy of this wave;
+			game.setNumberOfWaveKill(0);
+			game.setNumberOfWaveShoot(0);
 			game.setWaveNumber(game.getWaveNumber() + 1);
 			createWave();
 		}
@@ -275,6 +288,14 @@ public class GameMenuController {
 		game.setNumberOfKill(game.getNumberOfKill() + 1);
 		setValues();
 	}
+
+	public static void removeKill(){
+		Game game = Game.getInstance();
+		game.setNumberOfWaveKill(game.getNumberOfWaveKill() - 1);
+		game.setNumberOfKill(game.getNumberOfKill() - 1);
+		setValues();
+
+	}
 	public static void setValues() {
 		Game game = Game.getInstance();
 		int lives = game.getNumberOfLive();
@@ -286,7 +307,7 @@ public class GameMenuController {
 		nukeCount.setText(String.valueOf(nuke));
 		clusterCount.setText(String.valueOf(cluster));
 		killCount.setText(String.valueOf(kill));
-		waveField.setText("Wave: " + String.valueOf(wave));
+		waveField.setText("Wave: " + wave);
 	}
 
 	public static GameMenuViewController getViewController() {

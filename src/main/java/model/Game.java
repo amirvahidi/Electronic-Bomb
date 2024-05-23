@@ -204,7 +204,8 @@ public class Game {
 	}
 
 	public void gameOver() {
-		//TODO:
+		GameResult gameResult = new GameResult(this);
+		App.addGameResult(gameResult);
 		for (Transition animation : animations) {
 			animation.stop();
 		}
@@ -314,6 +315,14 @@ public class Game {
 
 	public void setNumberOfWaveKill(int numberOfWaveKill) {
 		this.numberOfWaveKill = numberOfWaveKill;
+	}
+
+	public int getNumberOfWaveShoot() {
+		return numberOfWaveShoot;
+	}
+
+	public void setNumberOfWaveShoot(int numberOfWaveShoot) {
+		this.numberOfWaveShoot = numberOfWaveShoot;
 	}
 
 	public enum Images {

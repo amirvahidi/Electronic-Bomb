@@ -85,7 +85,6 @@ public class GameMenuViewController extends Application {
 			colorAdjust.setBrightness(-0.5);
 			root.setEffect(colorAdjust);
 		}
-		//black and white setting
 	}
 
 	public void keyPressed(KeyEvent keyEvent) {

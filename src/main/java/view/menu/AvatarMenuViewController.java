@@ -34,6 +34,8 @@ public class AvatarMenuViewController extends Application {
 	public ImageView iconField;
 	public Rectangle dragField;
 
+	private String iconPath;
+
 	@Override
 	public void start(Stage stage) throws Exception {
 		AppView.setStage(stage);
@@ -55,6 +57,7 @@ public class AvatarMenuViewController extends Application {
 		for (File file : files) {
 			Image image = SwingFXUtils.toFXImage(ImageIO.read(file), null);
 			ImageView imageView = new ImageView(image);
+			imageView.setUserData(file.getPath());
 			imageView.setFitWidth(180);
 			imageView.setFitHeight(180);
 			imageView.setOnMouseClicked(this::imageClicked);
@@ -62,6 +65,7 @@ public class AvatarMenuViewController extends Application {
 		}
 		scrollPane.setContent(vBox);
 		iconField.setImage(App.getCurrentUser().getIcon());
+		iconPath = App.getCurrentUser().getPathOfIcon();
 		Setting setting = App.getCurrentUser().getSetting();
 		if (setting.isBlackAndWhite()) {
 			ColorAdjust colorAdjust = new ColorAdjust();
@@ -74,6 +78,8 @@ public class AvatarMenuViewController extends Application {
 	public void imageClicked(MouseEvent mouseEvent) {
 		ImageView imageView = (ImageView) mouseEvent.getSource();
 		iconField.setImage(imageView.getImage());
+		iconPath = (String) imageView.getUserData();
+		System.out.println(iconPath);
 	}
 
 	public void dragDropped(DragEvent dragEvent) throws Exception {
@@ -92,6 +98,7 @@ public class AvatarMenuViewController extends Application {
 			if (success) {
 				Image image = SwingFXUtils.toFXImage(ImageIO.read(new File(file.getPath())), null);
 				iconField.setImage(image);
+				iconPath = file.getPath();
 			}
 		}
 		dragEvent.setDropCompleted(success);
@@ -117,12 +124,13 @@ public class AvatarMenuViewController extends Application {
 		if (file != null) {
 			Image image = SwingFXUtils.toFXImage(ImageIO.read(new File(file.getPath())),null);
 			iconField.setImage(image);
+			iconPath = file.getPath();
 		}
 	}
 
 	public void save(MouseEvent mouseEvent) throws Exception {
 		Image image = iconField.getImage();
-		AvatarMenuController.changeAvatar(image);
+		AvatarMenuController.changeAvatar(image, iconPath);
 		AppView.setCurrentMenu(new ProfileMenuViewController());
 		AppView.getCurrentMenu().start(AppView.getStage());
 	}
